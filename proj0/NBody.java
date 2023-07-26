@@ -23,6 +23,7 @@ public class NBody {
 		final String filePath = args[2];
 		double r = readRadius(filePath);
 		Planet[] planets = readPlanets(filePath);
+		int N = planets.length;
 		
 		// Draw the Background
 		final String bgimg = "images/starfield.jpg";
@@ -39,7 +40,6 @@ public class NBody {
 		StdDraw.show();
 
 		// Creating an Animation
-		int N = planets.length;
 		double time = 0;
 		while (time <= T) {
 			double[] xForces = new double[N];
@@ -59,6 +59,15 @@ public class NBody {
 			StdDraw.pause(10);
 
 			time += dt;
+		}
+		
+		// Printing the Universe
+		StdOut.printf("%d\n", N);
+		StdOut.printf("%.2e\n", r);
+		for (int i = 0; i < N; i++) {
+			StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+			planets[i].xxPos, planets[i].yyPos, planets[i].xxVel,
+			planets[i].yyVel, planets[i].mass, planets[i].imgFileName);   
 		}
 
 		return;
