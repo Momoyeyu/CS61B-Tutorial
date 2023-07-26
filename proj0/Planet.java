@@ -32,7 +32,7 @@ public class Planet {
 		mass = p.mass;
 		imgFileName = p.imgFileName;
 	}
-	
+
 	public double calcDistance(Planet other) {
 		final double dx = this.xxPos - other.xxPos;
 		final double dy = this.yyPos - other.yyPos;
@@ -40,21 +40,23 @@ public class Planet {
 	}
 		
 	public double calcForceExertedBy(Planet other) {
-		final double r = this.calcDistance(other);		
+		final double r = calcDistance(other);		
 		return (G * this.mass * other.mass) / (r * r);
 	}
 
 	public double calcForceExertedByX(Planet other) {
-		return this.calcForceExertedBy(other) * (other.xxPos - this.xxPos) / this.calcDistance(other);
+		return this.calcForceExertedBy(other) * (other.xxPos - this.xxPos) / calcDistance(other);
 	}
 
 	public double calcForceExertedByY(Planet other) {
-		return this.calcForceExertedBy(other) * (other.yyPos - this.yyPos) / this.calcDistance(other);
+		return this.calcForceExertedBy(other) * (other.yyPos - this.yyPos) / calcDistance(other);
 	}
 
 	public double calcNetForceExertedByX(Planet[] allPlanets) {
 		double netf = 0;
 		for(Planet p : allPlanets) {
+			if (this.equals(p))
+				continue;
 			netf += this.calcForceExertedByX(p);
 		}
 		return netf;
@@ -63,21 +65,36 @@ public class Planet {
 	public double calcNetForceExertedByY(Planet[] allPlanets) {
 		double netf = 0;
 		for(Planet p : allPlanets) {
+			if (this.equals(p))
+				continue;
 			netf += this.calcForceExertedByY(p);
 		}
 		return netf;
 	}
 
 	public void update(double dt, double fx, double fy) {
-		double ax = fx / this.mass;
-		double ay = fy / this.mass;
+		double ax = fx / mass;
+		double ay = fy / mass;
 		xxVel = xxVel + dt * ax;
 		yyVel = yyVel + dt * ay;
-		this.xxPos = xxPos + dt * xxVel;
-		this.yyPos = yyPos + dt * yyVel;
+		xxPos = xxPos + dt * xxVel;
+		yyPos = yyPos + dt * yyVel;
 		return;
 	}
 
+	public void draw() {
+		StdDraw.picture(xxPos, yyPos, "images/" + imgFileName);
+		return;
+	}
+
+	// This function is for personal test
+	public void log() {
+		System.out.println("Position: (" + xxPos + ", " + yyPos + ")");
+		System.out.println("Velocity: (" + xxVel + ", " + yyVel + ")");
+		System.out.println("Mass: " + mass);
+		System.out.println("imgPath: "+ imgFileName);
+		return;
+	}
 
 }	
 
