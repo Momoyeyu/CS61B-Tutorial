@@ -29,6 +29,9 @@ public class NBody {
 		StdDraw.setScale(-r, r);
 		StdDraw.clear();
 		StdDraw.picture(0, 0, bgimg);
+
+		// Play the BGM
+		StdAudio.play("audio/2001.mid");
 		
 		// Draw All the Planets
 		for (Planet p : planets) 
