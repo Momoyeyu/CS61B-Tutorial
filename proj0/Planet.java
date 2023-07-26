@@ -87,14 +87,6 @@ public class Planet {
 		return;
 	}
 
-	// This function is for personal test
-	// public void log() {
-	//	System.out.println("Position: (" + xxPos + ", " + yyPos + ")");
-	//	System.out.println("Velocity: (" + xxVel + ", " + yyVel + ")");
-	//	System.out.println("Mass: " + mass);
-	//	System.out.println("imgPath: "+ imgFileName);
-	//	return;
-	// }
-
+	
 }	
 
