@@ -1,3 +1,9 @@
+
+# below are added by Momoyeyu
+.idea/
+out/
+
+# below are pull from skeleton
 *
 !*/
 !**.java
