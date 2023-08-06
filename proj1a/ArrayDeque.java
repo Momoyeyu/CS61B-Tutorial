@@ -16,13 +16,14 @@ public class ArrayDeque<T> {
     }
 
     private int stepping(int index) {
-        if (index >= array.length) {
-            return index - array.length;
-        } else if (index < 0) {
-            return index + array.length;
-        } else {
-            return index;
+        final int length = array.length;
+        while (index >= length) {
+            index -= length;
         }
+        while (index < 0) {
+            index += length;
+        }
+        return index;
     }
 
     public void addFirst(T data) {
@@ -46,7 +47,6 @@ public class ArrayDeque<T> {
 
     public T removeFirst() {
         if (isEmpty()) {
-            step = 0;
             return null;
         }
         T first = getFirst();
@@ -54,7 +54,7 @@ public class ArrayDeque<T> {
         array[firstIndex] = null;
         size -= 1;
         step -= 1; // first need step
-        if (size <= (array.length / 4) && !isEmpty()) {
+        if (size <= (array.length / 4) && array.length > 8) {
             resize(array.length / 2);
         }
         return first;
@@ -62,14 +62,13 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         if (isEmpty()) {
-            step = 0;
             return null;
         }
         T last = getLast();
         final int lastIndex = stepping(size - 1 - step);
         array[lastIndex] = null;
         size -= 1;
-        if (size <= (array.length / 4) && !isEmpty()) {
+        if (size <= (array.length / 4) && array.length > 8) {
             resize(array.length / 2);
         }
         return last;
@@ -83,7 +82,7 @@ public class ArrayDeque<T> {
         T[] temp = (T[]) new Object[capacity];
         final int firstIndex = stepping(array.length - step);
         final int lastIndex = stepping(size - 1 - step);
-        if (firstIndex < lastIndex) {
+        if (firstIndex <= lastIndex) {
             // copy from first to last
             System.arraycopy(array, firstIndex, temp, 0, size);
             step = 0;
@@ -100,7 +99,6 @@ public class ArrayDeque<T> {
 
     private T getFirst() {
         if (isEmpty()) {
-            step = 0;
             return null;
         }
         final int firstIndex = stepping(array.length - step);
@@ -109,7 +107,6 @@ public class ArrayDeque<T> {
 
     private T getLast() {
         if (isEmpty()) {
-            step = 0;
             return null;
         }
         final int lastIndex = stepping(size - 1 - step);
