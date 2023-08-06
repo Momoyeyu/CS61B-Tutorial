@@ -1,103 +1,121 @@
+
+/** second part of project1A.
+ * deque implemented by array
+ * @author Momoyeyu
+ */
 public class ArrayDeque<T> {
 
-    private T[] m_data;
-    private int m_size;
-    private int m_step;
+    private T[] array;
+    private int size;
+    private int step;
 
     public ArrayDeque() {
-        m_data = (T []) new Object[8];
-        m_size = 0;
-        m_step = 0;
+        array = (T[]) new Object[8];
+        size = 0;
+        step = 0;
     }
 
     private int stepping(int index) {
-        if (index >= m_data.length){
-            return index - m_data.length;
-        }
-        else if (index < 0) {
-            return index + m_data.length;
-        }
-        else {
+        if (index >= array.length) {
+            return index - array.length;
+        } else if (index < 0) {
+            return index + array.length;
+        } else {
             return index;
         }
     }
 
     public void addFirst(T data) {
-        if (m_size == m_data.length) {
-            resize(m_data.length * 2);
+        if (size == array.length) {
+            resize(array.length * 2);
         }
-        m_step += 1;
-        final int first_index = stepping(m_data.length - m_step);
-        m_data[first_index] = data;
-        m_size += 1;
+        step += 1;
+        final int firstIndex = stepping(array.length - step);
+        array[firstIndex] = data;
+        size += 1;
     }
 
     public void addLast(T data) {
-        if (m_size == m_data.length) {
-            resize(m_data.length * 2);
+        if (size == array.length) {
+            resize(array.length * 2);
         }
-        final int last_index = stepping(m_size - m_step);
-        m_data[last_index] = data;
-        m_size += 1;
+        final int lastIndex = stepping(size - step);
+        array[lastIndex] = data;
+        size += 1;
     }
 
     public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
         T first = getFirst();
-        final int first_index = stepping(m_data.length - m_step);
-        m_data[first_index] = null;
-        m_size -= 1;
-        m_step -= 1;
-        if (m_size <= (m_data.length / 4) && !isEmpty()) {
-            resize(m_data.length / 2);
+        final int firstIndex = stepping(array.length - step);
+        array[firstIndex] = null;
+        size -= 1;
+        step -= 1;
+        if (size <= (array.length / 4) && !isEmpty()) {
+            resize(array.length / 2);
         }
         return first;
     }
 
     public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
         T last = getLast();
-        final int last_index = stepping(m_size - 1 - m_step);
-        m_data[last_index] = null;
-        m_size -= 1;
-        if (m_size <= (m_data.length / 4) && !isEmpty()) {
-            resize(m_data.length / 2);
+        final int lastIndex = stepping(size - 1 - step);
+        array[lastIndex] = null;
+        size -= 1;
+        if (size <= (array.length / 4) && !isEmpty()) {
+            resize(array.length / 2);
         }
         return last;
     }
 
     public boolean isEmpty() {
-        return m_size == 0;
+        return size == 0;
     }
 
     private void resize(int capacity) {
-        T[] temp = (T []) new Object[capacity];
-        System.arraycopy(m_data, 0, temp, 0, m_size - m_step);
-        System.arraycopy(m_data, m_data.length - m_step, temp, temp.length - m_step, m_step);
-        m_data = temp;
+        T[] temp = (T[]) new Object[capacity];
+        System.arraycopy(array, 0, temp, 0, size - step);
+        System.arraycopy(array, array.length - step, temp, temp.length - step, step);
+        array = temp;
     }
 
     public T getFirst() {
-        final int first_index = stepping(m_data.length - m_step);
-        return m_data[first_index];
+        if (isEmpty()) {
+            return null;
+        }
+        final int firstIndex = stepping(array.length - step);
+        return array[firstIndex];
     }
 
     private T getLast() {
-        final int last_index = stepping(m_size - 1 - m_step);
-        return m_data[last_index];
+        if (isEmpty()) {
+            return null;
+        }
+        final int lastIndex = stepping(size - 1 - step);
+        return array[lastIndex];
     }
     public T get(int index) {
-        index = stepping(index - m_step);
-        return m_data[index];
+        if (index >= size || index < -size) {
+            return null;
+        }
+        index = stepping(index - step);
+        return array[index];
     }
 
     public int size() {
-        return m_size;
+        return size;
     }
 
     public void printDeque() {
-        final int first = m_data.length - m_step;
+        final int first = array.length - step;
         System.out.print("[ ");
-        for (int i = first; i < first + m_size; i++) {
-            System.out.print(m_data[stepping(i)] + " ");
+        for (int i = first; i < first + size; i++) {
+            System.out.print(array[stepping(i)] + " ");
         }
         System.out.print("]\n");
     }
