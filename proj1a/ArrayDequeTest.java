@@ -4,9 +4,9 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> ad = new ArrayDeque<Integer>();
         if (ad.isEmpty()) {
             System.out.println("[INFO]: Method isEmpty() passed!");
-        }
-        else {
-            System.out.println("[ERROR]: Array should be empty, but method isEmpty() return false.");
+        } else {
+            System.out.println("[ERROR]: Array should be empty "
+                               + "but method isEmpty() return false.");
         }
         ad.addLast(11);
         ad.addFirst(22);
@@ -19,15 +19,15 @@ public class ArrayDequeTest {
 
         System.out.println("[INFO]: Testing get() ...");
         int[] array = new int[] {55, 22, 11, 33, 44};
-        boolean ad_equal_array = true;
+        boolean adEqualArray = true;
         for (int i = 0; i < ad.size(); i++) {
-            if (ad.get(i) != array[i]){
+            if (ad.get(i) != array[i]) {
                 System.out.println("[ERROR]: Get wrong data.");
-                ad_equal_array = false;
+                adEqualArray = false;
                 break;
             }
         }
-        if (ad_equal_array) {
+        if (adEqualArray) {
             System.out.println("[INFO]: Method get() passed!");
         }
 

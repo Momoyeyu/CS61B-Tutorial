@@ -84,7 +84,7 @@ public class ArrayDeque<T> {
         array = temp;
     }
 
-    public T getFirst() {
+    private T getFirst() {
         if (isEmpty()) {
             return null;
         }
