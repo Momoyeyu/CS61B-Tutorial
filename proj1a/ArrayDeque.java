@@ -80,6 +80,7 @@ public class ArrayDeque<T> {
 
     private void resize(int capacity) {
         T[] temp = (T[]) new Object[capacity];
+        step = stepping(step);
         final int firstIndex = stepping(array.length - step);
         final int lastIndex = stepping(size - 1 - step);
         if (firstIndex <= lastIndex) {
