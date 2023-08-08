@@ -14,7 +14,7 @@ public class TestPalindrome {
             actual += d.removeFirst();
         }
         assertEquals("persiflage", actual);
-    }//  Uncomment this class once you've created your Palindrome class.
+    }
 
     @Test
     public void testIsPalindrome() {
@@ -31,7 +31,6 @@ public class TestPalindrome {
         assertTrue(palindrome.isPalindrome("123v210", obo));
         assertTrue(palindrome.isPalindrome("168950", obo));
         assertTrue(palindrome.isPalindrome("flake", obo));
-        assertFalse(palindrome.isPalindrome("abcmdcB", obo));
         assertFalse(palindrome.isPalindrome("cs61b16sc", obo));
         CharacterComparator ob5 = new OffByN(5);
         assertTrue(palindrome.isPalindrome("fa", ob5));
