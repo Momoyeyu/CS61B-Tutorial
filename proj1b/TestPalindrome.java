@@ -30,13 +30,17 @@ public class TestPalindrome {
         CharacterComparator obo = new OffByOne();
         assertTrue(palindrome.isPalindrome("123v210", obo));
         assertTrue(palindrome.isPalindrome("168950", obo));
+        assertTrue(palindrome.isPalindrome("FLaKE", obo));
         assertTrue(palindrome.isPalindrome("flake", obo));
         assertFalse(palindrome.isPalindrome("cs61b16sc", obo));
+        assertFalse(palindrome.isPalindrome("BB61b16BB", obo));
         CharacterComparator ob5 = new OffByN(5);
-        assertTrue(palindrome.isPalindrome("fa", ob5));
-        assertFalse(palindrome.isPalindrome("fuck", ob5));
+        assertTrue(palindrome.isPalindrome("faa", ob5));
+        assertTrue(palindrome.isPalindrome("FaA", ob5));
+        assertFalse(palindrome.isPalindrome("FucK", ob5));
+        assertFalse(palindrome.isPalindrome("duck", ob5));
         CharacterComparator ob3 = new OffByN(3);
-        assertTrue(palindrome.isPalindrome("dada", ob3));
-        assertFalse(palindrome.isPalindrome("fuck", ob3));
+        assertTrue(palindrome.isPalindrome("DadA", ob3));
+        assertFalse(palindrome.isPalindrome("Fuck", ob3));
     }
 }
